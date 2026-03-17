@@ -256,12 +256,12 @@ function getNotifications(scores, errors) {
 }
 
 const notifColor = {urgent:"#FF3D00",warn:"#FF9100",info:"#2979FF",success:"#00E676"};
-const iS = {width:"100%",background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:6,padding:"8px 10px",color:"#ddd",fontSize:11,fontFamily:"inherit",outline:"none",boxSizing:"border-box"};
+const iS = {width:"100%",background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:6,padding:"8px 10px",color:"#ddd",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box"};
 
 function TrendChart({ scores, subject }) {
   const data = [...scores].filter(s=>s.subject===subject).reverse();
   if (data.length < 2) return (
-    <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:120,fontSize:10,color:"#333"}}>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:120,fontSize:14,color:"#333"}}>
       Need 2+ papers to show trend
     </div>
   );
@@ -381,31 +381,31 @@ export default function RevisionPlan() {
   return (
     <div style={{minHeight:"100vh",background:"#08080D",color:"#E0E0E5",fontFamily:"'JetBrains Mono','SF Mono',monospace"}}>
       <div style={{position:"fixed",inset:0,zIndex:0,pointerEvents:"none",background:"radial-gradient(ellipse at 50% 0%,rgba(255,61,0,0.04) 0%,transparent 50%)"}}/>
-      <nav style={{position:"sticky",top:0,zIndex:50,background:"rgba(8,8,13,0.95)",backdropFilter:"blur(16px)",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 10px",height:44}}>
+      <nav style={{position:"sticky",top:0,zIndex:50,background:"rgba(8,8,13,0.95)",backdropFilter:"blur(16px)",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 16px",height:56}}>
         <div style={{display:"flex",alignItems:"center",gap:5}}>
-          <span style={{fontSize:12,fontWeight:800,color:"#FF3D00"}}>A*</span>
-          <span style={{fontWeight:700,fontSize:8,letterSpacing:2,color:"#fff"}}>BATTLE PLAN</span>
+          <span style={{fontSize:16,fontWeight:800,color:"#FF3D00"}}>A*</span>
+          <span style={{fontWeight:700,fontSize:13,letterSpacing:2,color:"#fff"}}>BATTLE PLAN</span>
         </div>
-        <div style={{display:"flex",gap:1}}>
+        <div style={{display:"flex",gap:4}}>
           {navItems.map(n=>(
-            <button key={n.id} onClick={()=>setView(n.id)} style={{background:view===n.id?"rgba(255,255,255,0.08)":"transparent",border:`1px solid ${view===n.id?"rgba(255,255,255,0.12)":"transparent"}`,color:view===n.id?"#fff":"#444",padding:"4px 7px",borderRadius:5,cursor:"pointer",fontSize:8,fontWeight:600,fontFamily:"inherit",position:"relative"}}>
+            <button key={n.id} onClick={()=>setView(n.id)} style={{background:view===n.id?"rgba(255,255,255,0.08)":"transparent",border:`1px solid ${view===n.id?"rgba(255,255,255,0.12)":"transparent"}`,color:view===n.id?"#fff":"#444",padding:"8px 13px",borderRadius:6,cursor:"pointer",fontSize:13,fontWeight:600,fontFamily:"inherit",position:"relative"}}>
               {n.l}
               {n.id==="tracker"&&notifications.length>0&&<span style={{position:"absolute",top:-3,right:-3,width:7,height:7,borderRadius:"50%",background:"#FF3D00",border:"1px solid #08080D"}}/>}
             </button>
           ))}
         </div>
       </nav>
-      <div style={{maxWidth:900,margin:"0 auto",padding:"20px 14px 80px",position:"relative",zIndex:1}}>
+      <div style={{maxWidth:1100,margin:"0 auto",padding:"24px 20px 100px",position:"relative",zIndex:1}}>
         {notifications.length>0&&(view==="tracker"||view==="analytics")&&(
           <div style={{marginBottom:16}}>
             {notifications.slice(0,3).map(n=>(
               <div key={n.id} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"9px 12px",marginBottom:5,borderRadius:8,background:`${notifColor[n.type]}10`,border:`1px solid ${notifColor[n.type]}28`}}>
-                <span style={{fontSize:13,flexShrink:0}}>{n.icon}</span>
+                <span style={{fontSize:17,flexShrink:0}}>{n.icon}</span>
                 <div style={{flex:1}}>
-                  <div style={{fontSize:10,fontWeight:700,color:notifColor[n.type]}}>{n.title}</div>
-                  <div style={{fontSize:9,color:"#777",marginTop:1}}>{n.body}</div>
+                  <div style={{fontSize:14,fontWeight:700,color:notifColor[n.type]}}>{n.title}</div>
+                  <div style={{fontSize:13,color:"#777",marginTop:1}}>{n.body}</div>
                 </div>
-                <button onClick={()=>setDismissed(p=>[...p,n.id])} style={{background:"transparent",border:"none",color:"#444",cursor:"pointer",fontSize:13,padding:0,lineHeight:1}}>×</button>
+                <button onClick={()=>setDismissed(p=>[...p,n.id])} style={{background:"transparent",border:"none",color:"#444",cursor:"pointer",fontSize:17,padding:0,lineHeight:1}}>×</button>
               </div>
             ))}
           </div>
@@ -414,21 +414,21 @@ export default function RevisionPlan() {
         {view==="analytics"&&(
           <div>
             <div style={{marginBottom:20}}>
-              <div style={{fontSize:9,letterSpacing:3,color:"#FF3D00",fontWeight:700,marginBottom:6}}>ANALYTICS</div>
-              <h1 style={{fontSize:18,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Performance Dashboard</h1>
+              <div style={{fontSize:13,letterSpacing:3,color:"#FF3D00",fontWeight:700,marginBottom:6}}>ANALYTICS</div>
+              <h1 style={{fontSize:22,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Performance Dashboard</h1>
             </div>
             <div style={{display:"grid",gridTemplateColumns:"200px 1fr",gap:12,marginBottom:16}}>
               <div style={{background:"rgba(255,255,255,0.025)",border:`1px solid ${br.labelColor}22`,borderRadius:10,padding:"16px 12px",display:"flex",flexDirection:"column",alignItems:"center"}}>
-                <div style={{fontSize:8,letterSpacing:2,color:br.labelColor,fontWeight:700,marginBottom:8}}>BATTLE READINESS</div>
+                <div style={{fontSize:13,letterSpacing:2,color:br.labelColor,fontWeight:700,marginBottom:8}}>BATTLE READINESS</div>
                 <BattleGauge score={br.total} label={br.label} labelColor={br.labelColor}/>
                 <div style={{width:"100%",marginTop:12}}>
                   {[["Papers",br.paperComp,20,"#2979FF"],["Avg Score",br.scoreComp,40,"#E040FB"],["Error ctrl",br.errorComp,20,"#FF9100"],["Plan done",br.checkComp,20,"#00E676"]].map(([l,v,mx,c])=>(
                     <div key={l} style={{display:"flex",alignItems:"center",gap:6,marginBottom:5}}>
-                      <div style={{fontSize:8,color:"#555",width:50,flexShrink:0}}>{l}</div>
+                      <div style={{fontSize:13,color:"#555",width:50,flexShrink:0}}>{l}</div>
                       <div style={{flex:1,height:4,borderRadius:2,background:"rgba(255,255,255,0.05)",overflow:"hidden"}}>
                         <div style={{height:"100%",width:`${(v/mx)*100}%`,background:c,borderRadius:2,transition:"width 1s ease"}}/>
                       </div>
-                      <div style={{fontSize:8,color:c,width:20,textAlign:"right"}}>{v}</div>
+                      <div style={{fontSize:13,color:c,width:20,textAlign:"right"}}>{v}</div>
                     </div>
                   ))}
                 </div>
@@ -446,16 +446,16 @@ export default function RevisionPlan() {
                     <div key={s} style={{background:"rgba(255,255,255,0.025)",border:`1px solid ${col}22`,borderRadius:10,padding:"12px 16px"}}>
                       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}}>
                         <div>
-                          <div style={{fontSize:8,color:col,fontWeight:700,letterSpacing:2}}>{s.toUpperCase()}</div>
+                          <div style={{fontSize:13,color:col,fontWeight:700,letterSpacing:2}}>{s.toUpperCase()}</div>
                           <div style={{display:"flex",alignItems:"baseline",gap:6,marginTop:2}}>
-                            <span style={{fontSize:22,fontWeight:900,color:grade?gradeColor(grade):"#333",fontFamily:"'Inter',sans-serif"}}>{grade||"—"}</span>
-                            {avg&&<span style={{fontSize:11,color:"#666"}}>{avg}% avg</span>}
-                            {trend!==null&&<span style={{fontSize:10,color:trend>=0?"#00E676":"#FF3D00"}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}
+                            <span style={{fontSize:28,fontWeight:900,color:grade?gradeColor(grade):"#333",fontFamily:"'Inter',sans-serif"}}>{grade||"—"}</span>
+                            {avg&&<span style={{fontSize:15,color:"#666"}}>{avg}% avg</span>}
+                            {trend!==null&&<span style={{fontSize:14,color:trend>=0?"#00E676":"#FF3D00"}}>{trend>=0?"▲":"▼"}{Math.abs(trend)}%</span>}
                           </div>
                         </div>
                         <div style={{textAlign:"right"}}>
-                          <div style={{fontSize:9,color:"#555",marginBottom:4}}>{cnt} paper{cnt!==1?"s":""} · Target:
-                            <select value={target} onChange={e=>setTargets(p=>({...p,[s]:e.target.value}))} style={{background:"transparent",border:"none",color:gradeColor(target),fontSize:9,fontWeight:700,fontFamily:"inherit",cursor:"pointer",outline:"none",marginLeft:4}}>
+                          <div style={{fontSize:13,color:"#555",marginBottom:4}}>{cnt} paper{cnt!==1?"s":""} · Target:
+                            <select value={target} onChange={e=>setTargets(p=>({...p,[s]:e.target.value}))} style={{background:"transparent",border:"none",color:gradeColor(target),fontSize:13,fontWeight:700,fontFamily:"inherit",cursor:"pointer",outline:"none",marginLeft:4}}>
                               {["A*","A","B","C"].map(g=><option key={g} value={g}>{g}</option>)}
                             </select>
                           </div>
@@ -463,7 +463,7 @@ export default function RevisionPlan() {
                             <div style={{width:80,height:4,borderRadius:2,background:"rgba(255,255,255,0.06)",overflow:"hidden"}}>
                               <div style={{height:"100%",width:`${progress}%`,background:col,borderRadius:2,transition:"width 1s ease"}}/>
                             </div>
-                            <span style={{fontSize:9,color:progress>=100?"#00E676":col}}>{progress}%</span>
+                            <span style={{fontSize:13,color:progress>=100?"#00E676":col}}>{progress}%</span>
                           </div>
                         </div>
                       </div>
@@ -485,10 +485,10 @@ export default function RevisionPlan() {
             </div>
             <div style={{background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:10,padding:18,marginBottom:12}}>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
-                <div style={{fontSize:9,letterSpacing:2,color:"#FF9100",fontWeight:700}}>SCORE TREND CHART</div>
+                <div style={{fontSize:13,letterSpacing:2,color:"#FF9100",fontWeight:700}}>SCORE TREND CHART</div>
                 <div style={{display:"flex",gap:4}}>
                   {SUBJECTS.map(s=>(
-                    <button key={s} onClick={()=>setChartSubject(s)} style={{background:chartSubject===s?`${SUBJECT_COLORS[s]}20`:"transparent",border:`1px solid ${chartSubject===s?SUBJECT_COLORS[s]+"44":"rgba(255,255,255,0.06)"}`,color:chartSubject===s?SUBJECT_COLORS[s]:"#555",padding:"4px 8px",borderRadius:4,cursor:"pointer",fontSize:8,fontFamily:"inherit",fontWeight:700}}>
+                    <button key={s} onClick={()=>setChartSubject(s)} style={{background:chartSubject===s?`${SUBJECT_COLORS[s]}20`:"transparent",border:`1px solid ${chartSubject===s?SUBJECT_COLORS[s]+"44":"rgba(255,255,255,0.06)"}`,color:chartSubject===s?SUBJECT_COLORS[s]:"#555",padding:"4px 8px",borderRadius:4,cursor:"pointer",fontSize:13,fontFamily:"inherit",fontWeight:700}}>
                       {s==="Further Maths"?"FM":s}
                     </button>
                   ))}
@@ -499,7 +499,7 @@ export default function RevisionPlan() {
                 {Object.entries(GRADE_BOUNDARIES[chartSubject]||{}).filter(([g])=>["A*","A","B"].includes(g)).map(([g,v])=>(
                   <div key={g} style={{display:"flex",alignItems:"center",gap:4}}>
                     <div style={{width:16,height:2,background:gradeColor(g),opacity:0.5,borderRadius:1}}/>
-                    <span style={{fontSize:8,color:gradeColor(g)}}>{g} ≥{v}%</span>
+                    <span style={{fontSize:13,color:gradeColor(g)}}>{g} ≥{v}%</span>
                   </div>
                 ))}
               </div>
@@ -512,13 +512,13 @@ export default function RevisionPlan() {
               return (
                 <div style={{padding:14,borderRadius:10,background:`${col}08`,border:`1px solid ${col}22`}}>
                   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}}>
-                    <div style={{fontSize:9,letterSpacing:2,color:col,fontWeight:700}}>NEXT EXAM PRESSURE</div>
-                    <div style={{fontSize:11,fontWeight:800,color:n.d<=14?"#FF3D00":"#FF9100"}}>{n.d} days</div>
+                    <div style={{fontSize:13,letterSpacing:2,color:col,fontWeight:700}}>NEXT EXAM PRESSURE</div>
+                    <div style={{fontSize:15,fontWeight:800,color:n.d<=14?"#FF3D00":"#FF9100"}}>{n.d} days</div>
                   </div>
                   <div style={{height:6,borderRadius:3,background:"rgba(255,255,255,0.05)",overflow:"hidden",marginBottom:8}}>
                     <div style={{height:"100%",width:`${urgency}%`,background:`linear-gradient(90deg,#2979FF,#FF3D00)`,borderRadius:3,transition:"width 1s ease"}}/>
                   </div>
-                  <div style={{fontSize:10,color:"#888"}}>{n.subject}: {n.paper}</div>
+                  <div style={{fontSize:14,color:"#888"}}>{n.subject}: {n.paper}</div>
                 </div>
               );
             })()}
@@ -528,20 +528,20 @@ export default function RevisionPlan() {
         {view==="tracker"&&(
           <div>
             <div style={{marginBottom:20}}>
-              <div style={{fontSize:9,letterSpacing:3,color:"#E040FB",fontWeight:700,marginBottom:6}}>TRACKER</div>
-              <h1 style={{fontSize:18,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Paper Scores & Error Log</h1>
-              <p style={{color:"#555",fontSize:10,marginTop:4}}>Everything saved to your browser. Persistent across sessions.</p>
+              <div style={{fontSize:13,letterSpacing:3,color:"#E040FB",fontWeight:700,marginBottom:6}}>TRACKER</div>
+              <h1 style={{fontSize:22,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Paper Scores & Error Log</h1>
+              <p style={{color:"#555",fontSize:14,marginTop:4}}>Everything saved to your browser. Persistent across sessions.</p>
             </div>
             <div style={{background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:10,padding:16,marginBottom:12}}>
-              <div style={{fontSize:9,letterSpacing:2,color:"#00E676",fontWeight:700,marginBottom:10}}>LOG A PAST PAPER</div>
+              <div style={{fontSize:13,letterSpacing:2,color:"#00E676",fontWeight:700,marginBottom:10}}>LOG A PAST PAPER</div>
               {nextSuggested&&(
                 <div onClick={()=>setScorePaper(nextSuggested)} style={{display:"flex",alignItems:"center",gap:8,padding:"8px 10px",borderRadius:6,background:"rgba(0,230,118,0.06)",border:"1px solid rgba(0,230,118,0.12)",marginBottom:10,cursor:"pointer"}}>
-                  <span style={{fontSize:11}}>💡</span>
+                  <span style={{fontSize:15}}>💡</span>
                   <div style={{flex:1}}>
-                    <div style={{fontSize:9,color:"#00E676",fontWeight:700}}>SUGGESTED NEXT</div>
-                    <div style={{fontSize:11,color:"#bbb"}}>{nextSuggested}</div>
+                    <div style={{fontSize:13,color:"#00E676",fontWeight:700}}>SUGGESTED NEXT</div>
+                    <div style={{fontSize:15,color:"#bbb"}}>{nextSuggested}</div>
                   </div>
-                  <span style={{fontSize:9,color:"#00E67650"}}>tap to fill →</span>
+                  <span style={{fontSize:13,color:"#00E67650"}}>tap to fill →</span>
                 </div>
               )}
               <div style={{display:"flex",gap:5,flexWrap:"wrap"}}>
@@ -549,42 +549,42 @@ export default function RevisionPlan() {
                 <input value={scorePaper} onChange={e=>setScorePaper(e.target.value)} placeholder="Paper name / year" style={{...iS,flex:"2 1 150px"}}/>
                 <input value={scoreGot} onChange={e=>setScoreGot(e.target.value)} placeholder="Score" type="number" style={{...iS,flex:"0 0 60px"}}/>
                 <input value={scoreMax} onChange={e=>setScoreMax(e.target.value)} placeholder="/Max" type="number" style={{...iS,flex:"0 0 60px"}}/>
-                <button onClick={addScore} style={{background:"#00E676",border:"none",color:"#000",padding:"8px 14px",borderRadius:6,cursor:"pointer",fontSize:10,fontWeight:800,fontFamily:"inherit"}}>SAVE</button>
+                <button onClick={addScore} style={{background:"#00E676",border:"none",color:"#000",padding:"8px 14px",borderRadius:6,cursor:"pointer",fontSize:14,fontWeight:800,fontFamily:"inherit"}}>SAVE</button>
               </div>
             </div>
             <div style={{background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:10,padding:16,marginBottom:12}}>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
-                <div style={{fontSize:9,letterSpacing:2,color:"#FF9100",fontWeight:700}}>PAPER HISTORY ({filteredScores.length})</div>
+                <div style={{fontSize:13,letterSpacing:2,color:"#FF9100",fontWeight:700}}>PAPER HISTORY ({filteredScores.length})</div>
                 <div style={{display:"flex",gap:3}}>
                   {["All",...SUBJECTS].map(s=>(
-                    <button key={s} onClick={()=>setSfilt(s)} style={{background:sfilt===s?"rgba(255,255,255,0.08)":"transparent",border:"1px solid rgba(255,255,255,0.06)",color:sfilt===s?"#fff":"#555",padding:"3px 6px",borderRadius:4,cursor:"pointer",fontSize:8,fontFamily:"inherit"}}>
+                    <button key={s} onClick={()=>setSfilt(s)} style={{background:sfilt===s?"rgba(255,255,255,0.08)":"transparent",border:"1px solid rgba(255,255,255,0.06)",color:sfilt===s?"#fff":"#555",padding:"3px 6px",borderRadius:4,cursor:"pointer",fontSize:13,fontFamily:"inherit"}}>
                       {s==="Further Maths"?"FM":s==="Computer Science"?"CS":s}
                     </button>
                   ))}
                 </div>
               </div>
-              {filteredScores.length===0&&<div style={{fontSize:11,color:"#333",textAlign:"center",padding:"16px 0"}}>No papers logged yet.</div>}
+              {filteredScores.length===0&&<div style={{fontSize:15,color:"#333",textAlign:"center",padding:"16px 0"}}>No papers logged yet.</div>}
               {filteredScores.map(s=>{
                 const grade=getGrade(s.pct,s.subject);
                 return (
                   <div key={s.id} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderTop:"1px solid rgba(255,255,255,0.04)"}}>
                     <div style={{width:3,height:32,borderRadius:2,background:SUBJECT_COLORS[s.subject]||"#888",flexShrink:0}}/>
                     <div style={{flex:1,minWidth:0}}>
-                      <div style={{fontSize:11,color:"#ccc",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{s.subject} — <span style={{color:"#777"}}>{s.paper}</span></div>
-                      <div style={{fontSize:9,color:"#444"}}>{s.date}</div>
+                      <div style={{fontSize:15,color:"#ccc",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{s.subject} — <span style={{color:"#777"}}>{s.paper}</span></div>
+                      <div style={{fontSize:13,color:"#444"}}>{s.date}</div>
                     </div>
                     <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
                       <div style={{textAlign:"right"}}>
-                        <div style={{fontSize:14,fontWeight:800,color:gradeColor(grade),fontFamily:"'Inter',sans-serif"}}>{grade} <span style={{fontSize:11}}>{s.pct}%</span></div>
-                        <div style={{fontSize:9,color:"#555"}}>{s.got}/{s.max}</div>
+                        <div style={{fontSize:18,fontWeight:800,color:gradeColor(grade),fontFamily:"'Inter',sans-serif"}}>{grade} <span style={{fontSize:15}}>{s.pct}%</span></div>
+                        <div style={{fontSize:13,color:"#555"}}>{s.got}/{s.max}</div>
                       </div>
                       {confirmDel===s.id?(
                         <div style={{display:"flex",gap:3}}>
-                          <button onClick={()=>{setScores(p=>p.filter(x=>x.id!==s.id));setConfirmDel(null);}} style={{background:"#FF3D00",border:"none",color:"#fff",padding:"3px 7px",borderRadius:4,cursor:"pointer",fontSize:9,fontFamily:"inherit"}}>DEL</button>
-                          <button onClick={()=>setConfirmDel(null)} style={{background:"rgba(255,255,255,0.06)",border:"none",color:"#888",padding:"3px 7px",borderRadius:4,cursor:"pointer",fontSize:9,fontFamily:"inherit"}}>×</button>
+                          <button onClick={()=>{setScores(p=>p.filter(x=>x.id!==s.id));setConfirmDel(null);}} style={{background:"#FF3D00",border:"none",color:"#fff",padding:"3px 7px",borderRadius:4,cursor:"pointer",fontSize:13,fontFamily:"inherit"}}>DEL</button>
+                          <button onClick={()=>setConfirmDel(null)} style={{background:"rgba(255,255,255,0.06)",border:"none",color:"#888",padding:"3px 7px",borderRadius:4,cursor:"pointer",fontSize:13,fontFamily:"inherit"}}>×</button>
                         </div>
                       ):(
-                        <button onClick={()=>setConfirmDel(s.id)} style={{background:"transparent",border:"1px solid rgba(255,255,255,0.06)",color:"#444",padding:"3px 6px",borderRadius:4,cursor:"pointer",fontSize:10,fontFamily:"inherit"}}>–</button>
+                        <button onClick={()=>setConfirmDel(s.id)} style={{background:"transparent",border:"1px solid rgba(255,255,255,0.06)",color:"#444",padding:"3px 6px",borderRadius:4,cursor:"pointer",fontSize:14,fontFamily:"inherit"}}>–</button>
                       )}
                     </div>
                   </div>
@@ -592,7 +592,7 @@ export default function RevisionPlan() {
               })}
             </div>
             <div style={{background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:10,padding:16,marginBottom:12}}>
-              <div style={{fontSize:9,letterSpacing:2,color:"#FF3D00",fontWeight:700,marginBottom:10}}>LOG AN ERROR</div>
+              <div style={{fontSize:13,letterSpacing:2,color:"#FF3D00",fontWeight:700,marginBottom:10}}>LOG AN ERROR</div>
               <div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:8}}>
                 <select value={errSubject} onChange={e=>setErrSubject(e.target.value)} style={{...iS,flex:"1 1 90px",background:"rgba(255,255,255,0.06)"}}>{SUBJECTS.map(s=><option key={s}>{s}</option>)}</select>
                 <input value={errTopic} onChange={e=>setErrTopic(e.target.value)} placeholder="Topic" style={{...iS,flex:"2 1 140px"}}/>
@@ -600,15 +600,15 @@ export default function RevisionPlan() {
               </div>
               <div style={{display:"flex",gap:5}}>
                 <input value={errNote} onChange={e=>setErrNote(e.target.value)} placeholder="What specifically went wrong? (optional)" style={{...iS,flex:1}}/>
-                <button onClick={addError} style={{background:"#FF3D00",border:"none",color:"#fff",padding:"8px 14px",borderRadius:6,cursor:"pointer",fontSize:10,fontWeight:800,fontFamily:"inherit"}}>SAVE</button>
+                <button onClick={addError} style={{background:"#FF3D00",border:"none",color:"#fff",padding:"8px 14px",borderRadius:6,cursor:"pointer",fontSize:14,fontWeight:800,fontFamily:"inherit"}}>SAVE</button>
               </div>
             </div>
             <div style={{background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:10,padding:16}}>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
-                <div style={{fontSize:9,letterSpacing:2,color:"#FF6D00",fontWeight:700}}>ERROR LOG ({filteredErrors.length})</div>
+                <div style={{fontSize:13,letterSpacing:2,color:"#FF6D00",fontWeight:700}}>ERROR LOG ({filteredErrors.length})</div>
                 <div style={{display:"flex",gap:3}}>
                   {["All",...SUBJECTS].map(s=>(
-                    <button key={s} onClick={()=>setEfilt(s)} style={{background:efilt===s?"rgba(255,255,255,0.08)":"transparent",border:"1px solid rgba(255,255,255,0.06)",color:efilt===s?"#fff":"#555",padding:"3px 6px",borderRadius:4,cursor:"pointer",fontSize:8,fontFamily:"inherit"}}>
+                    <button key={s} onClick={()=>setEfilt(s)} style={{background:efilt===s?"rgba(255,255,255,0.08)":"transparent",border:"1px solid rgba(255,255,255,0.06)",color:efilt===s?"#fff":"#555",padding:"3px 6px",borderRadius:4,cursor:"pointer",fontSize:13,fontFamily:"inherit"}}>
                       {s==="Further Maths"?"FM":s==="Computer Science"?"CS":s}
                     </button>
                   ))}
@@ -619,11 +619,11 @@ export default function RevisionPlan() {
                   {ERROR_TYPES.map(et=>{
                     const cnt=filteredErrors.filter(e=>e.type===et.id).length;
                     if(!cnt) return null;
-                    return <div key={et.id} style={{fontSize:9,padding:"3px 7px",borderRadius:4,background:`${et.color}12`,color:et.color,fontWeight:700}}>{et.label}: {cnt}</div>;
+                    return <div key={et.id} style={{fontSize:13,padding:"3px 7px",borderRadius:4,background:`${et.color}12`,color:et.color,fontWeight:700}}>{et.label}: {cnt}</div>;
                   })}
                 </div>
               )}
-              {filteredErrors.length===0&&<div style={{fontSize:11,color:"#333",textAlign:"center",padding:"14px 0"}}>No errors logged{efilt!=="All"?` for ${efilt}`:""} yet.</div>}
+              {filteredErrors.length===0&&<div style={{fontSize:15,color:"#333",textAlign:"center",padding:"14px 0"}}>No errors logged{efilt!=="All"?` for ${efilt}`:""} yet.</div>}
               <div style={{maxHeight:300,overflowY:"auto"}}>
                 {filteredErrors.map(e=>{
                   const et=ERROR_TYPES.find(t=>t.id===e.type);
@@ -631,10 +631,10 @@ export default function RevisionPlan() {
                     <div key={e.id} style={{display:"flex",gap:8,padding:"7px 0",borderTop:"1px solid rgba(255,255,255,0.04)",alignItems:"flex-start"}}>
                       <div style={{width:3,borderRadius:2,background:et?.color||"#555",flexShrink:0,alignSelf:"stretch"}}/>
                       <div style={{flex:1,minWidth:0}}>
-                        <div style={{fontSize:11,color:"#ccc"}}><span style={{color:SUBJECT_COLORS[e.subject]||"#888"}}>{e.subject}</span> — {e.topic}</div>
-                        <div style={{fontSize:9,color:"#555"}}>{et?.label} · {e.date}{e.note&&` · ${e.note}`}</div>
+                        <div style={{fontSize:15,color:"#ccc"}}><span style={{color:SUBJECT_COLORS[e.subject]||"#888"}}>{e.subject}</span> — {e.topic}</div>
+                        <div style={{fontSize:13,color:"#555"}}>{et?.label} · {e.date}{e.note&&` · ${e.note}`}</div>
                       </div>
-                      <button onClick={()=>setErrors(p=>p.filter(x=>x.id!==e.id))} style={{background:"transparent",border:"1px solid rgba(255,255,255,0.05)",color:"#444",padding:"2px 6px",borderRadius:4,cursor:"pointer",fontSize:10,fontFamily:"inherit",flexShrink:0}}>–</button>
+                      <button onClick={()=>setErrors(p=>p.filter(x=>x.id!==e.id))} style={{background:"transparent",border:"1px solid rgba(255,255,255,0.05)",color:"#444",padding:"2px 6px",borderRadius:4,cursor:"pointer",fontSize:14,fontFamily:"inherit",flexShrink:0}}>–</button>
                     </div>
                   );
                 })}
@@ -649,23 +649,23 @@ export default function RevisionPlan() {
           return (
             <div>
               {next&&<div style={{textAlign:"center",marginBottom:28}}>
-                <div style={{fontSize:9,letterSpacing:3,color:"#FF3D00",fontWeight:700,marginBottom:10}}>FIRST EXAM IN</div>
-                <div style={{fontSize:60,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",lineHeight:1}}>{next.d}</div>
-                <div style={{fontSize:13,color:"#555",marginTop:4}}>days · {next.subject} — {next.paper}</div>
+                <div style={{fontSize:13,letterSpacing:3,color:"#FF3D00",fontWeight:700,marginBottom:10}}>FIRST EXAM IN</div>
+                <div style={{fontSize:72,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",lineHeight:1}}>{next.d}</div>
+                <div style={{fontSize:17,color:"#555",marginTop:4}}>days · {next.subject} — {next.paper}</div>
               </div>}
-              <div style={{fontSize:9,letterSpacing:2,color:"#555",fontWeight:700,marginBottom:10}}>ALL EXAMS</div>
+              <div style={{fontSize:13,letterSpacing:2,color:"#555",fontWeight:700,marginBottom:10}}>ALL EXAMS</div>
               {EXAMS.map((e,i)=>{
                 const d=daysUntil(e.date),col=SUBJECT_COLORS[e.subject]||"#888",past=d<0;
                 return <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 12px",marginBottom:4,borderRadius:8,background:past?"rgba(255,255,255,0.01)":"rgba(255,255,255,0.025)",border:`1px solid ${past?"rgba(255,255,255,0.02)":col+"22"}`,opacity:past?0.3:1}}>
                   <div style={{width:4,height:30,borderRadius:2,background:col,flexShrink:0}}/>
                   <div style={{flex:1}}>
-                    <div style={{fontSize:11,fontWeight:700,color:"#ddd"}}>{e.subject}: {e.paper.split(":")[1]?.trim()||e.paper}</div>
-                    <div style={{fontSize:9,color:"#555"}}>{e.code} · {e.board} · {e.time} · {e.duration}</div>
-                    <div style={{fontSize:9,color:"#666",marginTop:2,lineHeight:1.4}}>{e.topics}</div>
+                    <div style={{fontSize:15,fontWeight:700,color:"#ddd"}}>{e.subject}: {e.paper.split(":")[1]?.trim()||e.paper}</div>
+                    <div style={{fontSize:13,color:"#555"}}>{e.code} · {e.board} · {e.time} · {e.duration}</div>
+                    <div style={{fontSize:13,color:"#666",marginTop:2,lineHeight:1.4}}>{e.topics}</div>
                   </div>
                   <div style={{textAlign:"right",flexShrink:0}}>
-                    <div style={{fontSize:9,color:"#555"}}>{new Date(e.date).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div>
-                    <div style={{fontSize:12,fontWeight:800,color:d<=7?"#FF3D00":d<=30?"#FF6D00":col}}>{d>0?`${d}d`:"DONE"}</div>
+                    <div style={{fontSize:13,color:"#555"}}>{new Date(e.date).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div>
+                    <div style={{fontSize:16,fontWeight:800,color:d<=7?"#FF3D00":d<=30?"#FF6D00":col}}>{d>0?`${d}d`:"DONE"}</div>
                   </div>
                 </div>;
               })}
@@ -678,32 +678,32 @@ export default function RevisionPlan() {
           return (
             <div>
               <div style={{marginBottom:16}}>
-                <div style={{fontSize:9,letterSpacing:3,color:"#FF6D00",fontWeight:700,marginBottom:6}}>10-WEEK PLAN</div>
-                <h1 style={{fontSize:18,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Week by Week to A*A*A*</h1>
+                <div style={{fontSize:13,letterSpacing:3,color:"#FF6D00",fontWeight:700,marginBottom:6}}>10-WEEK PLAN</div>
+                <h1 style={{fontSize:22,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Week by Week to A*A*A*</h1>
               </div>
               <div style={{display:"flex",gap:3,marginBottom:16,flexWrap:"wrap"}}>
                 {WEEKS.map(w=>(
-                  <button key={w.num} onClick={()=>setActiveWeek(w.num)} style={{background:activeWeek===w.num?"rgba(255,109,0,0.15)":"rgba(255,255,255,0.03)",border:`1px solid ${activeWeek===w.num?"#FF6D0044":"rgba(255,255,255,0.06)"}`,color:activeWeek===w.num?"#FF6D00":"#555",padding:"5px 9px",borderRadius:5,cursor:"pointer",fontSize:9,fontWeight:700,fontFamily:"inherit"}}>W{w.num}</button>
+                  <button key={w.num} onClick={()=>setActiveWeek(w.num)} style={{background:activeWeek===w.num?"rgba(255,109,0,0.15)":"rgba(255,255,255,0.03)",border:`1px solid ${activeWeek===w.num?"#FF6D0044":"rgba(255,255,255,0.06)"}`,color:activeWeek===w.num?"#FF6D00":"#555",padding:"5px 9px",borderRadius:5,cursor:"pointer",fontSize:13,fontWeight:700,fontFamily:"inherit"}}>W{w.num}</button>
                 ))}
               </div>
               {week&&<div>
                 <div style={{marginBottom:14}}>
-                  <div style={{fontSize:15,fontWeight:800,color:"#fff",fontFamily:"'Inter',sans-serif"}}>Week {week.num}: {week.title}</div>
-                  <div style={{fontSize:10,color:"#555",marginTop:2}}>{week.start} — {week.end} · {week.focus}</div>
+                  <div style={{fontSize:20,fontWeight:800,color:"#fff",fontFamily:"'Inter',sans-serif"}}>Week {week.num}: {week.title}</div>
+                  <div style={{fontSize:14,color:"#555",marginTop:2}}>{week.start} — {week.end} · {week.focus}</div>
                 </div>
                 {week.days.map((day,di)=>(
                   <div key={di} style={{marginBottom:10,background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.05)",borderRadius:8,padding:"12px 14px"}}>
-                    <div style={{fontSize:9,fontWeight:700,color:"#777",marginBottom:8,letterSpacing:1}}>{day.day.toUpperCase()}</div>
+                    <div style={{fontSize:13,fontWeight:700,color:"#777",marginBottom:8,letterSpacing:1}}>{day.day.toUpperCase()}</div>
                     {day.blocks.map((b,bi)=>{
                       const k=`${week.num}-${di}-${bi}`,done=checks[k],col=SUBJECT_COLORS[b.s]||"#78909C";
                       return <div key={bi} onClick={()=>toggle(k)} style={{display:"flex",alignItems:"flex-start",gap:10,padding:"6px 0",borderBottom:bi<day.blocks.length-1?"1px solid rgba(255,255,255,0.03)":"none",cursor:"pointer",opacity:done?0.3:1}}>
                         <div style={{width:14,height:14,borderRadius:3,flexShrink:0,marginTop:2,border:done?"none":`2px solid ${col}44`,background:done?col:"transparent",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                          {done&&<span style={{color:"#000",fontSize:8,fontWeight:800}}>✓</span>}
+                          {done&&<span style={{color:"#000",fontSize:13,fontWeight:800}}>✓</span>}
                         </div>
                         <div style={{width:3,borderRadius:2,background:col,opacity:0.5,flexShrink:0,alignSelf:"stretch"}}/>
                         <div style={{flex:1}}>
-                          <div style={{fontSize:11,lineHeight:1.5,color:done?"#444":"#bbb",textDecoration:done?"line-through":"none"}}>{b.t}</div>
-                          {b.d&&<div style={{fontSize:9,color:"#444",marginTop:1}}>{b.d}</div>}
+                          <div style={{fontSize:15,lineHeight:1.5,color:done?"#444":"#bbb",textDecoration:done?"line-through":"none"}}>{b.t}</div>
+                          {b.d&&<div style={{fontSize:13,color:"#444",marginTop:1}}>{b.d}</div>}
                         </div>
                       </div>;
                     })}
@@ -717,16 +717,16 @@ export default function RevisionPlan() {
         {view==="technique"&&(
           <div>
             <div style={{marginBottom:20}}>
-              <div style={{fontSize:9,letterSpacing:3,color:"#FFD600",fontWeight:700,marginBottom:6}}>EXAM TECHNIQUE</div>
-              <h1 style={{fontSize:18,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>How to Pick Up Extra Marks</h1>
+              <div style={{fontSize:13,letterSpacing:3,color:"#FFD600",fontWeight:700,marginBottom:6}}>EXAM TECHNIQUE</div>
+              <h1 style={{fontSize:22,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>How to Pick Up Extra Marks</h1>
             </div>
             {TECHNIQUE.map((subj,si)=>(
               <div key={si} style={{marginBottom:14,background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:10,padding:18}}>
-                <div style={{fontSize:9,letterSpacing:2,fontWeight:700,color:subj.color,marginBottom:12}}>{subj.subject.toUpperCase()}</div>
+                <div style={{fontSize:13,letterSpacing:2,fontWeight:700,color:subj.color,marginBottom:12}}>{subj.subject.toUpperCase()}</div>
                 {subj.tips.map((tip,ti)=>(
                   <div key={ti} style={{marginBottom:10,paddingBottom:10,borderBottom:ti<subj.tips.length-1?"1px solid rgba(255,255,255,0.04)":"none"}}>
-                    <div style={{fontSize:11,fontWeight:700,color:"#ddd",marginBottom:3}}>{tip.title}</div>
-                    <div style={{fontSize:10,lineHeight:1.6,color:"#888"}}>{tip.text}</div>
+                    <div style={{fontSize:15,fontWeight:700,color:"#ddd",marginBottom:3}}>{tip.title}</div>
+                    <div style={{fontSize:14,lineHeight:1.6,color:"#888"}}>{tip.text}</div>
                   </div>
                 ))}
               </div>
@@ -737,16 +737,16 @@ export default function RevisionPlan() {
         {view==="daily"&&(
           <div>
             <div style={{marginBottom:20}}>
-              <div style={{fontSize:9,letterSpacing:3,color:"#FF9100",fontWeight:700,marginBottom:6}}>DAILY ROUTINE</div>
-              <h1 style={{fontSize:18,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Your Revision Day</h1>
+              <div style={{fontSize:13,letterSpacing:3,color:"#FF9100",fontWeight:700,marginBottom:6}}>DAILY ROUTINE</div>
+              <h1 style={{fontSize:22,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Your Revision Day</h1>
             </div>
             {DAILY_ROUTINE.map((b,i)=>(
               <div key={i} style={{display:"flex",gap:12,padding:"11px 0",borderBottom:"1px solid rgba(255,255,255,0.035)"}}>
-                <div style={{width:44,flexShrink:0,textAlign:"right"}}><div style={{fontSize:10,fontWeight:700,color:b.color}}>{b.time}</div></div>
+                <div style={{width:44,flexShrink:0,textAlign:"right"}}><div style={{fontSize:14,fontWeight:700,color:b.color}}>{b.time}</div></div>
                 <div style={{width:3,flexShrink:0,borderRadius:2,background:b.color,opacity:0.5}}/>
                 <div style={{flex:1}}>
-                  <div style={{display:"flex",alignItems:"center",gap:5,marginBottom:2}}><span>{b.icon}</span><span style={{fontSize:11,fontWeight:700,color:"#fff"}}>{b.block}</span></div>
-                  <p style={{margin:0,fontSize:10,lineHeight:1.6,color:"#777"}}>{b.desc}</p>
+                  <div style={{display:"flex",alignItems:"center",gap:5,marginBottom:2}}><span>{b.icon}</span><span style={{fontSize:15,fontWeight:700,color:"#fff"}}>{b.block}</span></div>
+                  <p style={{margin:0,fontSize:14,lineHeight:1.6,color:"#777"}}>{b.desc}</p>
                 </div>
               </div>
             ))}
@@ -756,14 +756,14 @@ export default function RevisionPlan() {
         {view==="resources"&&(
           <div>
             <div style={{marginBottom:20}}>
-              <div style={{fontSize:9,letterSpacing:3,color:"#00E676",fontWeight:700,marginBottom:6}}>RESOURCES</div>
-              <h1 style={{fontSize:18,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Everything You Need</h1>
+              <div style={{fontSize:13,letterSpacing:3,color:"#00E676",fontWeight:700,marginBottom:6}}>RESOURCES</div>
+              <h1 style={{fontSize:22,fontWeight:800,color:"#fff",margin:0,fontFamily:"'Inter',sans-serif"}}>Everything You Need</h1>
             </div>
             {RESOURCES.map((r,ri)=>(
               <div key={ri} style={{marginBottom:14,background:"rgba(255,255,255,0.025)",border:"1px solid rgba(255,255,255,0.06)",borderRadius:10,padding:18}}>
-                <div style={{fontSize:9,letterSpacing:2,fontWeight:700,color:SUBJECT_COLORS[r.subject],marginBottom:12}}>{r.subject.toUpperCase()}</div>
+                <div style={{fontSize:13,letterSpacing:2,fontWeight:700,color:SUBJECT_COLORS[r.subject],marginBottom:12}}>{r.subject.toUpperCase()}</div>
                 {r.items.map((item,ii)=>(
-                  <a key={ii} href={item.url} target="_blank" rel="noopener noreferrer" style={{display:"block",fontSize:12,color:"#ddd",textDecoration:"none",padding:"7px 0",borderBottom:ii<r.items.length-1?"1px solid rgba(255,255,255,0.04)":"none"}}>
+                  <a key={ii} href={item.url} target="_blank" rel="noopener noreferrer" style={{display:"block",fontSize:16,color:"#ddd",textDecoration:"none",padding:"7px 0",borderBottom:ii<r.items.length-1?"1px solid rgba(255,255,255,0.04)":"none"}}>
                     {item.name} <span style={{color:SUBJECT_COLORS[r.subject],opacity:0.5}}>↗</span>
                   </a>
                 ))}
