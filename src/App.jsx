@@ -27,6 +27,171 @@ const PAPER_SUGGESTIONS = {
 const SUBJECT_COLORS = { "Maths": "#2979FF", "Further Maths": "#E040FB", "CS": "#00E676" };
 const SUBJECTS = ["Maths", "Further Maths", "CS"];
 
+// ── Friend profile: Economics AQA · Physics OCR A · Chemistry AQA ──────────
+// NOTE: exam dates below are estimated for 2026 — verify against official timetables.
+
+const FRIEND_EXAMS = [
+  { date: "2026-05-12", subject: "Chemistry", paper: "Paper 1: Inorganic & Physical Chemistry", code: "7405/1", time: "PM", duration: "2h", board: "AQA", topics: "Atomic structure, bonding, energetics, kinetics, equilibria, redox, periodicity, Group 2 & 7, transition metals", maxMark: 105 },
+  { date: "2026-05-19", subject: "Physics", paper: "Component 1: Modelling Physics", code: "H557/01", time: "AM", duration: "2h 15m", board: "OCR", topics: "Motion, forces, energy, electricity, waves, quantum, circular motion, oscillations, SHM", maxMark: 100 },
+  { date: "2026-05-21", subject: "Economics", paper: "Paper 1: Markets & Market Failure", code: "7136/1", time: "AM", duration: "2h", board: "AQA", topics: "Individual decision making, price determination, production & costs, competitive markets, market failure, government intervention", maxMark: 80 },
+  { date: "2026-06-04", subject: "Chemistry", paper: "Paper 2: Organic & Physical Chemistry", code: "7405/2", time: "PM", duration: "2h", board: "AQA", topics: "Organic: alkanes, alkenes, halogenoalkanes, alcohols, aldehydes, ketones, carboxylic acids, amines, amino acids. Rate equations, electrode potentials, NMR", maxMark: 105 },
+  { date: "2026-06-08", subject: "Physics", paper: "Component 2: Exploring Physics", code: "H557/02", time: "PM", duration: "2h 15m", board: "OCR", topics: "Thermal physics, nuclear & particle physics, gravitational fields, electric fields, capacitors, magnetic fields, electromagnetic induction", maxMark: 100 },
+  { date: "2026-06-11", subject: "Economics", paper: "Paper 2: National & International Economy", code: "7136/2", time: "AM", duration: "2h", board: "AQA", topics: "Macroeconomic objectives, AD/AS, fiscal policy, monetary policy, supply-side policy, international trade, balance of payments, exchange rates", maxMark: 80 },
+  { date: "2026-06-18", subject: "Chemistry", paper: "Paper 3: Practical Skills & Data Analysis", code: "7405/3", time: "PM", duration: "2h", board: "AQA", topics: "Practical techniques, data analysis, organic synthesis, identification, spectroscopy (IR, MS, NMR), research skills", maxMark: 90 },
+  { date: "2026-06-22", subject: "Economics", paper: "Paper 3: Economic Principles & Issues", code: "7136/3", time: "PM", duration: "2h", board: "AQA", topics: "Synoptic: micro + macro + global economies. Case study data response + extended essay", maxMark: 80 },
+  { date: "2026-06-23", subject: "Physics", paper: "Component 3: Unified Physics", code: "H557/03", time: "AM", duration: "1h 30m", board: "OCR", topics: "Synoptic: Breadth & Depth topics combined, experimental data analysis, extended response", maxMark: 70 },
+];
+
+const FRIEND_GRADE_BOUNDARIES = {
+  "Chemistry": { "A*": 80, "A": 70, "B": 60, "C": 50, "D": 40, "E": 30 },
+  "Physics":   { "A*": 80, "A": 70, "B": 60, "C": 50, "D": 40, "E": 30 },
+  "Economics": { "A*": 75, "A": 65, "B": 55, "C": 45, "D": 35, "E": 25 },
+};
+
+const FRIEND_PAPER_SUGGESTIONS = {
+  "Chemistry": ["AQA 7405/1 Paper 1 — 2023","AQA 7405/1 Paper 1 — 2022","AQA 7405/2 Paper 2 — 2023","AQA 7405/2 Paper 2 — 2022","AQA 7405/3 Paper 3 — 2023","AQA 7405/3 Paper 3 — 2022","AQA 7405/1 Paper 1 — 2019","AQA 7405/2 Paper 2 — 2019"],
+  "Physics":   ["OCR H557/01 Modelling Physics — 2023","OCR H557/01 Modelling Physics — 2022","OCR H557/02 Exploring Physics — 2023","OCR H557/02 Exploring Physics — 2022","OCR H557/03 Unified Physics — 2023","OCR H557/03 Unified Physics — 2022","OCR H557/01 Modelling Physics — 2019","OCR H557/02 Exploring Physics — 2019"],
+  "Economics": ["AQA 7136/1 Paper 1 — 2023","AQA 7136/1 Paper 1 — 2022","AQA 7136/2 Paper 2 — 2023","AQA 7136/2 Paper 2 — 2022","AQA 7136/3 Paper 3 — 2023","AQA 7136/3 Paper 3 — 2022","AQA 7136/1 Paper 1 — 2019","AQA 7136/2 Paper 2 — 2019"],
+};
+
+const FRIEND_SUBJECT_COLORS = { "Chemistry": "#FF4081", "Physics": "#40C4FF", "Economics": "#FFD600" };
+const FRIEND_SUBJECTS = ["Chemistry", "Physics", "Economics"];
+
+const FRIEND_WEEKS = [
+  { num:1, start:"10 Mar", end:"16 Mar", title:"Audit & Foundation", focus:"Identify gaps across Chemistry, Physics, Economics", days:[
+    {day:"Mon 10",blocks:[{t:"Chemistry: Spec checklist — mark every topic RAG",d:"2h",s:"Chemistry"},{t:"Economics: Spec checklist — mark every topic RAG",d:"1.5h",s:"Economics"}]},
+    {day:"Tue 11",blocks:[{t:"Physics: Spec checklist — all modules RAG",d:"2h",s:"Physics"},{t:"Chemistry: Atomic structure, bonding, periodicity recap",d:"1.5h",s:"Chemistry"}]},
+    {day:"Wed 12",blocks:[{t:"Economics: Markets — supply & demand, elasticities",d:"2h",s:"Economics"},{t:"Physics: Mechanics — kinematics, forces, energy, momentum",d:"1.5h",s:"Physics"}]},
+    {day:"Thu 13",blocks:[{t:"Chemistry: Energetics — enthalpy, Hess's Law, bond enthalpy",d:"2h",s:"Chemistry"},{t:"Economics: Market failure — externalities, public goods, info failure",d:"1.5h",s:"Economics"}]},
+    {day:"Fri 14",blocks:[{t:"Physics: Electricity — current, resistance, Kirchhoff's laws, IV curves",d:"2h",s:"Physics"},{t:"Chemistry: Kinetics — rate, activation energy, Maxwell-Boltzmann",d:"1h",s:"Chemistry"}]},
+    {day:"Sat 15",blocks:[{t:"PAST PAPER: Chemistry Paper 1 (timed, 2h)",d:"2h",s:"Chemistry"},{t:"Mark + error log every wrong answer",d:"1h",s:"Chemistry"}]},
+    {day:"Sun 16",blocks:[{t:"REST DAY — light review of RAG lists only",d:"0.5h",s:"rest"}]},
+  ]},
+  { num:2, start:"17 Mar", end:"23 Mar", title:"Physical Chemistry Blitz", focus:"Energetics, equilibria, kinetics — core Chemistry topics", days:[
+    {day:"Mon 17",blocks:[{t:"Chemistry: Equilibria — Le Chatelier's, Kc, Kp calculations",d:"2.5h",s:"Chemistry"},{t:"Economics: Production & costs — short run vs long run, returns to scale",d:"1.5h",s:"Economics"}]},
+    {day:"Tue 18",blocks:[{t:"Chemistry: Redox — oxidation states, half-equations, standard electrode potentials",d:"2.5h",s:"Chemistry"},{t:"Physics: Waves — superposition, diffraction, interference, polarisation",d:"1.5h",s:"Physics"}]},
+    {day:"Wed 19",blocks:[{t:"Physics: Quantum physics — photoelectric effect, wave-particle duality, energy levels",d:"2h",s:"Physics"},{t:"Chemistry: Periodicity — Period 3, Group 2, Group 7",d:"1.5h",s:"Chemistry"}]},
+    {day:"Thu 20",blocks:[{t:"Economics: Market structures — perfect comp, monopoly, oligopoly, monopsony",d:"2h",s:"Economics"},{t:"Chemistry: Organic — alkanes, alkenes, halogenoalkanes mechanisms",d:"1.5h",s:"Chemistry"}]},
+    {day:"Fri 21",blocks:[{t:"Physics: Circular motion + simple harmonic motion",d:"2h",s:"Physics"},{t:"Economics: Labour market — wages, trade unions, discrimination",d:"1.5h",s:"Economics"}]},
+    {day:"Sat 22",blocks:[{t:"PAST PAPER: Physics Component 1 (timed, 2h15)",d:"2.5h",s:"Physics"},{t:"Mark + error log",d:"1h",s:"Physics"}]},
+    {day:"Sun 23",blocks:[{t:"REST DAY",d:"",s:"rest"}]},
+  ]},
+  { num:3, start:"24 Mar", end:"30 Mar", title:"Organic Chemistry + Macro Economics", focus:"Mechanisms + AD/AS model", days:[
+    {day:"Mon 24",blocks:[{t:"Chemistry: Alcohols, aldehydes, ketones — reactions & tests",d:"2h",s:"Chemistry"},{t:"Economics: National income — GDP, circular flow, multiplier",d:"1.5h",s:"Economics"}]},
+    {day:"Tue 25",blocks:[{t:"Chemistry: Carboxylic acids, esters, amines — synthesis & reactions",d:"2h",s:"Chemistry"},{t:"Physics: Thermal physics — ideal gas laws, Boltzmann, internal energy",d:"1.5h",s:"Physics"}]},
+    {day:"Wed 26",blocks:[{t:"Economics: AD/AS model — shifts, price level effects, macroeconomic equilibrium",d:"2h",s:"Economics"},{t:"Chemistry: Amino acids, proteins, NMR spectroscopy — A2 organic",d:"1.5h",s:"Chemistry"}]},
+    {day:"Thu 27",blocks:[{t:"Physics: Gravitational & electric fields — field lines, potential, satellite orbits",d:"2h",s:"Physics"},{t:"Economics: Unemployment & inflation — causes, types, trade-offs",d:"1.5h",s:"Economics"}]},
+    {day:"Fri 28",blocks:[{t:"Chemistry: Organic mechanisms from memory — no notes",d:"2h",s:"Chemistry"},{t:"Physics: Capacitors — charge/discharge, time constants, energy stored",d:"1h",s:"Physics"}]},
+    {day:"Sat 29",blocks:[{t:"PAST PAPER: Economics Paper 1 (timed, 2h)",d:"2h",s:"Economics"},{t:"Mark + note all knowledge & data gaps",d:"1h",s:"Economics"}]},
+    {day:"Sun 30",blocks:[{t:"REST DAY",d:"",s:"rest"}]},
+  ]},
+  { num:4, start:"31 Mar", end:"6 Apr", title:"Physics Fields + Macro Policy", focus:"Fields, induction + fiscal/monetary/supply-side policy", days:[
+    {day:"Mon 31",blocks:[{t:"Physics: Magnetic fields — force on conductors & charges, flux density",d:"2.5h",s:"Physics"},{t:"Economics: Fiscal policy — government spending, taxation, budget balance",d:"1.5h",s:"Economics"}]},
+    {day:"Tue 1",blocks:[{t:"Physics: Electromagnetic induction — Faraday, Lenz, AC generators, transformers",d:"2.5h",s:"Physics"},{t:"Chemistry: Rate equations, Arrhenius equation, A2 kinetics",d:"1.5h",s:"Chemistry"}]},
+    {day:"Wed 2",blocks:[{t:"Economics: Monetary policy — interest rates, QE, inflation targeting",d:"2h",s:"Economics"},{t:"Physics: Nuclear physics — radioactive decay, half-life, binding energy",d:"1.5h",s:"Physics"}]},
+    {day:"Thu 3",blocks:[{t:"Chemistry: Electrode potentials — Born-Haber, electrolysis, fuel cells",d:"2h",s:"Chemistry"},{t:"Economics: Supply-side policy — deregulation, labour flexibility, investment",d:"1.5h",s:"Economics"}]},
+    {day:"Fri 4",blocks:[{t:"PAST PAPER: Chemistry Paper 2 (timed, 2h)",d:"2h",s:"Chemistry"},{t:"Mark + review organic mechanisms carefully",d:"1h",s:"Chemistry"}]},
+    {day:"Sat 5",blocks:[{t:"PAST PAPER: Economics Paper 2 (timed, 2h)",d:"2h",s:"Economics"},{t:"Mark + review all macro diagrams",d:"1h",s:"Economics"}]},
+    {day:"Sun 6",blocks:[{t:"REST DAY",d:"",s:"rest"}]},
+  ]},
+  { num:5, start:"7 Apr", end:"13 Apr", title:"Easter Sprint Week 1", focus:"INTENSIVE — 5+ hours/day", days:[
+    {day:"Mon 7",blocks:[{t:"Chemistry: Paper 1 past paper → mark → redo every wrong Q",d:"3h",s:"Chemistry"},{t:"Economics: 25-mark essay — micro topic under timed conditions",d:"2h",s:"Economics"}]},
+    {day:"Tue 8",blocks:[{t:"Physics: Component 1 past paper → mark → error analysis",d:"3h",s:"Physics"},{t:"Chemistry: Spectroscopy — IR, mass spec, NMR structure identification",d:"2h",s:"Chemistry"}]},
+    {day:"Wed 9",blocks:[{t:"Economics: Paper 2 past paper → mark → review AD/AS diagrams",d:"3h",s:"Economics"},{t:"Physics: Weakest topic past Q deep dive",d:"2h",s:"Physics"}]},
+    {day:"Thu 10",blocks:[{t:"Chemistry: Required practicals — write full method for each from memory",d:"3h",s:"Chemistry"},{t:"Economics: Paper 3 data extract practice — annotation technique",d:"2h",s:"Economics"}]},
+    {day:"Fri 11",blocks:[{t:"Physics: Component 2 past paper (timed, 2h15) → mark",d:"3h",s:"Physics"},{t:"Chemistry: All wrong answers from Weeks 1-4 — rework each one",d:"2h",s:"Chemistry"}]},
+    {day:"Sat 12",blocks:[{t:"Economics: Full Paper 3 (timed, 2h) → mark",d:"3h",s:"Economics"},{t:"Physics: Flashcard review — all formulas, units, constants",d:"1h",s:"Physics"}]},
+    {day:"Sun 13",blocks:[{t:"REST — 30 min flashcard review",d:"0.5h",s:"rest"}]},
+  ]},
+  { num:6, start:"14 Apr", end:"20 Apr", title:"Easter Sprint Week 2", focus:"Paper practice every day — exam conditions", days:[
+    {day:"Mon 14",blocks:[{t:"Chemistry: Paper 1 — second past paper (different year)",d:"2.5h",s:"Chemistry"},{t:"Economics: Micro essay — market failure + government failure debate",d:"2h",s:"Economics"}]},
+    {day:"Tue 15",blocks:[{t:"Physics: Synoptic connections — build topic link map across modules",d:"2h",s:"Physics"},{t:"Chemistry: A2 organic synthesis — multi-step routes from memory",d:"2h",s:"Chemistry"}]},
+    {day:"Wed 16",blocks:[{t:"Economics: Paper 1 — second past paper (timed)",d:"2.5h",s:"Economics"},{t:"Physics: Component 1 — second past paper",d:"2.5h",s:"Physics"}]},
+    {day:"Thu 17",blocks:[{t:"Chemistry: Paper 2 — second past paper (timed)",d:"2.5h",s:"Chemistry"},{t:"Economics: International trade — comparative advantage, protectionism",d:"1.5h",s:"Economics"}]},
+    {day:"Fri 18",blocks:[{t:"Physics: Full Component 1 + Component 2 (back-to-back, exam conditions)",d:"5h",s:"Physics"},{t:"Mark both, full error log",d:"1h",s:"Physics"}]},
+    {day:"Sat 19",blocks:[{t:"Economics: 25-mark macro essay — fiscal vs monetary policy",d:"2.5h",s:"Economics"},{t:"Chemistry: NMR deep dive — splitting patterns, chemical shifts, structure ID",d:"1.5h",s:"Chemistry"}]},
+    {day:"Sun 20",blocks:[{t:"REST DAY",d:"",s:"rest"}]},
+  ]},
+  { num:7, start:"21 Apr", end:"27 Apr", title:"Weak Spot Assault", focus:"Everything still going wrong", days:[
+    {day:"Mon–Fri",blocks:[{t:"Review ALL error logs. Top 5 weakest topics = this week's focus.",d:"",s:"Chemistry"},{t:"Daily: 2h weakest Chem, 2h weakest Physics, 1.5h weakest Econ",d:"5.5h",s:"Physics"},{t:"PMT topic papers for targeted weak-topic practice",d:"",s:"Economics"}]},
+    {day:"Sat 26",blocks:[{t:"FULL MOCK: Chemistry Paper 1 under exam conditions",d:"2h",s:"Chemistry"},{t:"Compare score to Week 1 score — quantify improvement",d:"0.5h",s:"Chemistry"}]},
+    {day:"Sun 27",blocks:[{t:"REST",d:"",s:"rest"}]},
+  ]},
+  { num:8, start:"28 Apr", end:"4 May", title:"Pre-Exam Consolidation", focus:"Refine, don't learn new things", days:[
+    {day:"Mon–Wed",blocks:[{t:"One past paper per day — alternate subjects. Mark immediately.",d:"3h",s:"Chemistry"},{t:"Flashcard review: all formulas, definitions, required practicals",d:"1h",s:"Physics"},{t:"Write one-page cheat sheet for each subject",d:"1h",s:"Economics"}]},
+    {day:"Thu–Fri",blocks:[{t:"Chemistry: Final Paper 3 practice — data analysis & practical Qs",d:"2h",s:"Chemistry"},{t:"Physics: Long-answer synoptic questions from past papers",d:"2h",s:"Physics"},{t:"Economics: Essay plans — 5 micro + 5 macro from past papers",d:"1.5h",s:"Economics"}]},
+    {day:"Sat 3",blocks:[{t:"Light review only. Read cheat sheets. Early night.",d:"1h",s:"rest"}]},
+    {day:"Sun 4",blocks:[{t:"REST. Prepare exam kit. Sleep well.",d:"",s:"rest"}]},
+  ]},
+  { num:9, start:"5 May", end:"21 May", title:"EXAM PERIOD: Phase 1", focus:"Chemistry P1, Physics C1, Economics P1", days:[
+    {day:"5–11 May",blocks:[{t:"Final Chemistry Paper 1 revision. Past paper every other day.",d:"3h",s:"Chemistry"},{t:"Night before: cheat sheet, 5-10 Qs, early bed.",d:"1h",s:"Chemistry"}]},
+    {day:"12 May ★",blocks:[{t:"EXAM: Chemistry Paper 1 — Inorganic & Physical Chemistry (PM, 2h)",d:"2h",s:"Chemistry"}]},
+    {day:"13–18 May",blocks:[{t:"Physics Component 1 revision: mechanics, electricity, waves, quantum.",d:"3h",s:"Physics"}]},
+    {day:"19 May ★",blocks:[{t:"EXAM: Physics Component 1 — Modelling Physics (AM, 2h15)",d:"2.25h",s:"Physics"}]},
+    {day:"20 May",blocks:[{t:"Economics Paper 1: Markets & Market Failure — final revision sprint.",d:"3h",s:"Economics"}]},
+    {day:"21 May ★",blocks:[{t:"EXAM: Economics Paper 1 — Markets & Market Failure (AM, 2h)",d:"2h",s:"Economics"}]},
+  ]},
+  { num:10, start:"22 May", end:"23 Jun", title:"EXAM PERIOD: Phase 2", focus:"Chemistry P2+P3, Physics C2+C3, Economics P2+P3", days:[
+    {day:"22 May–3 Jun",blocks:[{t:"Chemistry Paper 2: Organic + physical. Past papers daily.",d:"4h",s:"Chemistry"}]},
+    {day:"4 Jun ★",blocks:[{t:"EXAM: Chemistry Paper 2 — Organic & Physical Chemistry (PM, 2h)",d:"2h",s:"Chemistry"}]},
+    {day:"5–7 Jun",blocks:[{t:"Physics Component 2: fields, nuclear, thermal. Economics Paper 2: Macro.",d:"4h",s:"Physics"}]},
+    {day:"8 Jun ★",blocks:[{t:"EXAM: Physics Component 2 — Exploring Physics (PM, 2h15)",d:"2.25h",s:"Physics"}]},
+    {day:"9–10 Jun",blocks:[{t:"Economics Paper 2: National & International Economy — final push.",d:"3h",s:"Economics"}]},
+    {day:"11 Jun ★",blocks:[{t:"EXAM: Economics Paper 2 — National & International Economy (AM, 2h)",d:"2h",s:"Economics"}]},
+    {day:"12–17 Jun",blocks:[{t:"Chemistry Paper 3: Required practicals, data analysis, spectroscopy.",d:"4h",s:"Chemistry"}]},
+    {day:"18 Jun ★",blocks:[{t:"EXAM: Chemistry Paper 3 — Practical Skills (PM, 2h)",d:"2h",s:"Chemistry"}]},
+    {day:"19–21 Jun",blocks:[{t:"Economics Paper 3: Case study technique + synoptic essay practice.",d:"3h",s:"Economics"}]},
+    {day:"22 Jun ★",blocks:[{t:"EXAM: Economics Paper 3 — Economic Principles & Issues (PM, 2h)",d:"2h",s:"Economics"}]},
+    {day:"22 Jun",blocks:[{t:"Physics Component 3: Unified Physics synoptic revision.",d:"2h",s:"Physics"}]},
+    {day:"23 Jun ★",blocks:[{t:"EXAM: Physics Component 3 — Unified Physics (AM, 1h30) — LAST EXAM",d:"1.5h",s:"Physics"}]},
+  ]},
+];
+
+const FRIEND_TECHNIQUE = [
+  { subject: "Chemistry (AQA 7405)", color: "#FF4081", tips: [
+    { title: "Required practicals are 25% of your marks", text: "Paper 3 tests all 12 required practicals. Know the method, variables, analysis technique, and common errors for each." },
+    { title: "'State', 'Explain', 'Suggest' — different demands", text: "'State' = brief fact, no explanation. 'Explain' = mechanism required. 'Suggest' = apply knowledge to unfamiliar context." },
+    { title: "Curly arrow mechanisms — every arrow matters", text: "Every arrow must go from electron source to electron sink. Missing or misplaced arrows lose marks. Practise until automatic." },
+    { title: "Enthalpy cycles: draw first, calculate second", text: "Hess's Law and Born-Haber: draw the full cycle, label every arrow's direction and sign, then apply." },
+    { title: "Spectroscopy: learn key shifts cold", text: "IR: O-H broad ~3200-3550, C=O ~1700, N-H ~3300. NMR: know TMS reference, chemical shift regions, n+1 splitting rule." },
+  ]},
+  { subject: "Physics (OCR A H557)", color: "#40C4FF", tips: [
+    { title: "Define the principle before applying it", text: "Many 3-4 mark 'explain' questions want a definition first. State the law/principle, then show it applies to this case." },
+    { title: "Show ALL working — even obvious steps", text: "Unit errors cost 1 mark. Carried-forward errors (ECF) save you if your method is right. Never skip intermediate steps." },
+    { title: "Graph axes: label with quantity / unit", text: "e.g. 'Distance / m' not 'distance (m)'. Missing units on axes scores zero for that mark." },
+    { title: "Component 3 is synoptic — connect topics", text: "Link capacitor discharge ↔ exponential decay ↔ radioactive decay ↔ Newton cooling. Examiners reward cross-topic thinking." },
+    { title: "Required practicals: know methods and uncertainties", text: "For every practical: what you measure, how, systematic errors, random errors, how to minimise uncertainty." },
+  ]},
+  { subject: "Economics (AQA 7136)", color: "#FFD600", tips: [
+    { title: "Every answer: Chain of reasoning (PEEL + evaluation)", text: "Point → Explain the mechanism → Evidence (data or example) → Link to question. Then evaluate with a limitation or context." },
+    { title: "25-mark essays: plan for 5 minutes first", text: "Plan 3 arguments + evaluation. Judgement in your conclusion is where A* marks live — don't leave it vague." },
+    { title: "Diagrams: label every element", text: "Every axis, every curve, every equilibrium point, every shift direction. An unlabelled diagram scores 0 for diagram marks." },
+    { title: "Paper 3: read the extract before you write anything", text: "Spend 8-10 mins annotating the data extract. Every high-mark answer must reference data from the insert." },
+    { title: "Evaluation: specific real-world examples only", text: "Vague examples ('a firm might...') score less than specific ones. Prepare 5-6 strong, real examples across micro and macro." },
+  ]},
+];
+
+const FRIEND_RESOURCES = [
+  { subject: "Chemistry", items: [
+    { name: "Physics & Maths Tutor — AQA Chemistry past papers", url: "https://www.physicsandmathstutor.com/a-level-chemistry/aqa/" },
+    { name: "Save My Exams — AQA A-Level Chemistry", url: "https://www.savemyexams.com/a-level/chemistry/aqa/" },
+    { name: "ChemGuide — all AQA Chemistry topics in depth", url: "https://www.chemguide.co.uk/" },
+    { name: "RSC Education — required practical resources", url: "https://edu.rsc.org/" },
+  ]},
+  { subject: "Physics", items: [
+    { name: "Physics & Maths Tutor — OCR A Physics past papers", url: "https://www.physicsandmathstutor.com/a-level-physics/ocr-a/" },
+    { name: "Save My Exams — OCR A Physics", url: "https://www.savemyexams.com/a-level/physics/ocr-a/" },
+    { name: "Isaac Physics — OCR A problems and skills", url: "https://isaacphysics.org/" },
+    { name: "A Level Physics Online — video tutorials", url: "https://www.alevelphysicsonline.com/" },
+  ]},
+  { subject: "Economics", items: [
+    { name: "Physics & Maths Tutor — AQA Economics past papers", url: "https://www.physicsandmathstutor.com/economics/a-level/aqa/" },
+    { name: "Save My Exams — AQA A-Level Economics", url: "https://www.savemyexams.com/a-level/economics/aqa/" },
+    { name: "Tutor2u — Economics revision resources", url: "https://www.tutor2u.net/economics/a-level" },
+    { name: "Economics Online — AQA revision notes", url: "https://www.economicsonline.co.uk/" },
+  ]},
+];
+
 const ERROR_TYPES = [
   { id: "calc", label: "Calculation error", color: "#FFD600" },
   { id: "method", label: "Wrong method", color: "#FF3D00" },
@@ -177,6 +342,19 @@ const DAILY_ROUTINE = [
   { time: "21:30", block: "Shutdown", desc: "What did I learn? What's tomorrow's focus? Screens off by 22:00.", color: "#37474F", icon: "🌙" },
 ];
 
+const PROFILES = {
+  me: {
+    exams: EXAMS, gradeBoundaries: GRADE_BOUNDARIES, paperSuggestions: PAPER_SUGGESTIONS,
+    subjectColors: SUBJECT_COLORS, subjects: SUBJECTS, weeks: WEEKS, technique: TECHNIQUE, resources: RESOURCES,
+    defaultTargets: {Maths:"A*","Further Maths":"A*",CS:"A*"},
+  },
+  friend: {
+    exams: FRIEND_EXAMS, gradeBoundaries: FRIEND_GRADE_BOUNDARIES, paperSuggestions: FRIEND_PAPER_SUGGESTIONS,
+    subjectColors: FRIEND_SUBJECT_COLORS, subjects: FRIEND_SUBJECTS, weeks: FRIEND_WEEKS, technique: FRIEND_TECHNIQUE, resources: FRIEND_RESOURCES,
+    defaultTargets: {Chemistry:"A*",Physics:"A*",Economics:"A*"},
+  },
+};
+
 const S_SCORES  = "rbp_scores_v3";
 const S_ERRORS  = "rbp_errors_v3";
 const S_CHECKS  = "rbp_checks_v3";
@@ -192,8 +370,8 @@ function daysUntil(d) {
   return Math.ceil((t-n)/86400000);
 }
 
-function getGrade(pct, subject) {
-  const b = GRADE_BOUNDARIES[subject] || {};
+function getGrade(pct, subject, boundaries=GRADE_BOUNDARIES) {
+  const b = boundaries[subject] || {};
   for (const g of ["A*","A","B","C","D","E"]) {
     if (pct >= b[g]) return g;
   }
@@ -221,17 +399,17 @@ function calcBattleReadiness(scores, errors, checks) {
   };
 }
 
-function getNotifications(scores, errors) {
+function getNotifications(scores, errors, {exams=EXAMS,subjects=SUBJECTS,paperSuggestions=PAPER_SUGGESTIONS}={}) {
   const now = new Date(); now.setHours(0,0,0,0);
   const notes = [];
-  const upcoming = EXAMS.map(e=>({...e,d:Math.ceil((new Date(e.date)-now)/86400000)})).filter(e=>e.d>0).sort((a,b)=>a.d-b.d);
+  const upcoming = exams.map(e=>({...e,d:Math.ceil((new Date(e.date)-now)/86400000)})).filter(e=>e.d>0).sort((a,b)=>a.d-b.d);
   if (upcoming.length && upcoming[0].d<=14) {
     const n=upcoming[0];
     notes.push({id:`exam_${n.code}`,type:"urgent",icon:"⚠️",title:`${n.subject} exam in ${n.d} days`,body:`${n.paper} — ${n.time}, ${n.duration}`});
   }
-  SUBJECTS.forEach(subj=>{
+  subjects.forEach(subj=>{
     const done=scores.filter(s=>s.subject===subj).map(s=>s.paper);
-    const next=(PAPER_SUGGESTIONS[subj]||[]).find(p=>!done.includes(p));
+    const next=(paperSuggestions[subj]||[]).find(p=>!done.includes(p));
     if(next){
       const examD=upcoming.find(e=>e.subject===subj)?.d??999;
       notes.push({id:`paper_${subj}_${next}`,type:examD<=21?"urgent":examD<=42?"warn":"info",icon:"📋",title:`Do this paper next: ${subj}`,body:next});
@@ -258,7 +436,7 @@ function getNotifications(scores, errors) {
 const notifColor = {urgent:"#FF3D00",warn:"#FF9100",info:"#2979FF",success:"#00E676"};
 const iS = {width:"100%",background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:6,padding:"8px 10px",color:"#ddd",fontSize:15,fontFamily:"inherit",outline:"none",boxSizing:"border-box"};
 
-function TrendChart({ scores, subject }) {
+function TrendChart({ scores, subject, subjectColors=SUBJECT_COLORS, gradeBoundaries=GRADE_BOUNDARIES }) {
   const data = [...scores].filter(s=>s.subject===subject).reverse();
   if (data.length < 2) return (
     <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:120,fontSize:14,color:"#333"}}>
@@ -269,8 +447,8 @@ function TrendChart({ scores, subject }) {
   const pcts = data.map(d=>d.pct);
   const minY = Math.max(0, Math.min(...pcts)-10);
   const maxY = Math.min(100, Math.max(...pcts)+10);
-  const col = SUBJECT_COLORS[subject]||"#888";
-  const bounds = GRADE_BOUNDARIES[subject]||{};
+  const col = subjectColors[subject]||"#888";
+  const bounds = gradeBoundaries[subject]||{};
   const xScale = i => PAD.l + (i/(data.length-1))*(W-PAD.l-PAD.r);
   const yScale = v => PAD.t + (1-(v-minY)/(maxY-minY))*(H-PAD.t-PAD.b);
   const pts = data.map((d,i)=>([xScale(i), yScale(d.pct)]));
@@ -323,34 +501,46 @@ function BattleGauge({ score, label, labelColor }) {
   );
 }
 
-export default function RevisionPlan() {
+function RevisionPlan({ profile: profileName, onProfileChange }) {
+  const P = PROFILES[profileName];
+  // Shadow module-level constants with profile-specific data inside this component
+  const { exams: EXAMS, gradeBoundaries: GRADE_BOUNDARIES, paperSuggestions: PAPER_SUGGESTIONS,
+          subjectColors: SUBJECT_COLORS, subjects: SUBJECTS, weeks: WEEKS,
+          technique: TECHNIQUE, resources: RESOURCES, defaultTargets } = P;
+  const sk = profileName === "friend" ? "friend_" : "";
+  const sScores  = `rbp_${sk}scores_v3`;
+  const sErrors  = `rbp_${sk}errors_v3`;
+  const sChecks  = `rbp_${sk}checks_v3`;
+  const sNotifs  = `rbp_${sk}notifs_v3`;
+  const sTargets = `rbp_${sk}targets_v3`;
+
   const [view, setView]           = useState("analytics");
   const [activeWeek, setActiveWeek] = useState(2);
-  const [scores, setScores]       = useState(()=>load(S_SCORES,[]));
-  const [errors, setErrors]       = useState(()=>load(S_ERRORS,[]));
-  const [checks, setChecks]       = useState(()=>load(S_CHECKS,{}));
-  const [dismissed, setDismissed] = useState(()=>load(S_NOTIFS,[]));
-  const [targets, setTargets]     = useState(()=>load(S_TARGETS,{Maths:"A*","Further Maths":"A*",CS:"A*"}));
-  const [scoreSubject, setScoreSubject] = useState("Maths");
+  const [scores, setScores]       = useState(()=>load(sScores,[]));
+  const [errors, setErrors]       = useState(()=>load(sErrors,[]));
+  const [checks, setChecks]       = useState(()=>load(sChecks,{}));
+  const [dismissed, setDismissed] = useState(()=>load(sNotifs,[]));
+  const [targets, setTargets]     = useState(()=>load(sTargets, defaultTargets));
+  const [scoreSubject, setScoreSubject] = useState(SUBJECTS[0]);
   const [scorePaper, setScorePaper]     = useState("");
   const [scoreGot, setScoreGot]         = useState("");
   const [scoreMax, setScoreMax]         = useState("");
   const [sfilt, setSfilt]               = useState("All");
-  const [errSubject, setErrSubject] = useState("Maths");
+  const [errSubject, setErrSubject] = useState(SUBJECTS[0]);
   const [errTopic, setErrTopic]     = useState("");
   const [errType, setErrType]       = useState("method");
   const [errNote, setErrNote]       = useState("");
   const [efilt, setEfilt]           = useState("All");
   const [confirmDel, setConfirmDel] = useState(null);
-  const [chartSubject, setChartSubject] = useState("Maths");
+  const [chartSubject, setChartSubject] = useState(SUBJECTS[0]);
 
-  useEffect(()=>save(S_SCORES,scores),[scores]);
-  useEffect(()=>save(S_ERRORS,errors),[errors]);
-  useEffect(()=>save(S_CHECKS,checks),[checks]);
-  useEffect(()=>save(S_NOTIFS,dismissed),[dismissed]);
-  useEffect(()=>save(S_TARGETS,targets),[targets]);
+  useEffect(()=>save(sScores,scores),[scores]);
+  useEffect(()=>save(sErrors,errors),[errors]);
+  useEffect(()=>save(sChecks,checks),[checks]);
+  useEffect(()=>save(sNotifs,dismissed),[dismissed]);
+  useEffect(()=>save(sTargets,targets),[targets]);
 
-  const notifications = getNotifications(scores,errors).filter(n=>!dismissed.includes(n.id));
+  const notifications = getNotifications(scores,errors,{exams:EXAMS,subjects:SUBJECTS,paperSuggestions:PAPER_SUGGESTIONS}).filter(n=>!dismissed.includes(n.id));
   const br = calcBattleReadiness(scores,errors,checks);
   const toggle = k => setChecks(p=>{const n={...p};n[k]?delete n[k]:n[k]=true;return n;});
 
@@ -382,9 +572,18 @@ export default function RevisionPlan() {
     <div style={{minHeight:"100vh",background:"#08080D",color:"#E0E0E5",fontFamily:"'JetBrains Mono','SF Mono',monospace"}}>
       <div style={{position:"fixed",inset:0,zIndex:0,pointerEvents:"none",background:"radial-gradient(ellipse at 50% 0%,rgba(255,61,0,0.04) 0%,transparent 50%)"}}/>
       <nav style={{position:"sticky",top:0,zIndex:50,background:"rgba(8,8,13,0.95)",backdropFilter:"blur(16px)",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 16px",height:56}}>
-        <div style={{display:"flex",alignItems:"center",gap:5}}>
-          <span style={{fontSize:16,fontWeight:800,color:"#FF3D00"}}>A*</span>
-          <span style={{fontWeight:700,fontSize:13,letterSpacing:2,color:"#fff"}}>BATTLE PLAN</span>
+        <div style={{display:"flex",alignItems:"center",gap:10}}>
+          <div style={{display:"flex",alignItems:"center",gap:5}}>
+            <span style={{fontSize:16,fontWeight:800,color:"#FF3D00"}}>A*</span>
+            <span style={{fontWeight:700,fontSize:13,letterSpacing:2,color:"#fff"}}>BATTLE PLAN</span>
+          </div>
+          <div style={{display:"flex",gap:3,marginLeft:6}}>
+            {["me","friend"].map(p=>(
+              <button key={p} onClick={()=>onProfileChange(p)} style={{background:profileName===p?"rgba(255,255,255,0.1)":"transparent",border:`1px solid ${profileName===p?"rgba(255,255,255,0.2)":"rgba(255,255,255,0.06)"}`,color:profileName===p?"#fff":"#555",padding:"3px 8px",borderRadius:5,cursor:"pointer",fontSize:12,fontWeight:700,fontFamily:"inherit"}}>
+                {p==="me"?"Me":"Friend"}
+              </button>
+            ))}
+          </div>
         </div>
         <div style={{display:"flex",gap:4}}>
           {navItems.map(n=>(
@@ -435,7 +634,7 @@ export default function RevisionPlan() {
               </div>
               <div style={{display:"flex",flexDirection:"column",gap:8}}>
                 {SUBJECTS.map(s=>{
-                  const avg=subjectAvg(s),grade=avg?getGrade(avg,s):null,col=SUBJECT_COLORS[s];
+                  const avg=subjectAvg(s),grade=avg?getGrade(avg,s,GRADE_BOUNDARIES):null,col=SUBJECT_COLORS[s];
                   const cnt=scores.filter(x=>x.subject===s).length;
                   const target=targets[s]||"A*";
                   const targetPct=GRADE_BOUNDARIES[s]?.[target]||80;
@@ -494,7 +693,7 @@ export default function RevisionPlan() {
                   ))}
                 </div>
               </div>
-              <TrendChart scores={scores} subject={chartSubject}/>
+              <TrendChart scores={scores} subject={chartSubject} subjectColors={SUBJECT_COLORS} gradeBoundaries={GRADE_BOUNDARIES}/>
               <div style={{display:"flex",gap:12,marginTop:8,flexWrap:"wrap"}}>
                 {Object.entries(GRADE_BOUNDARIES[chartSubject]||{}).filter(([g])=>["A*","A","B"].includes(g)).map(([g,v])=>(
                   <div key={g} style={{display:"flex",alignItems:"center",gap:4}}>
@@ -565,7 +764,7 @@ export default function RevisionPlan() {
               </div>
               {filteredScores.length===0&&<div style={{fontSize:15,color:"#333",textAlign:"center",padding:"16px 0"}}>No papers logged yet.</div>}
               {filteredScores.map(s=>{
-                const grade=getGrade(s.pct,s.subject);
+                const grade=getGrade(s.pct,s.subject,GRADE_BOUNDARIES);
                 return (
                   <div key={s.id} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderTop:"1px solid rgba(255,255,255,0.04)"}}>
                     <div style={{width:3,height:32,borderRadius:2,background:SUBJECT_COLORS[s.subject]||"#888",flexShrink:0}}/>
@@ -774,4 +973,10 @@ export default function RevisionPlan() {
       </div>
     </div>
   );
+}
+
+export default function App() {
+  const [profile, setProfile] = useState(()=>load("rbp_active_profile","me"));
+  useEffect(()=>save("rbp_active_profile",profile),[profile]);
+  return <RevisionPlan key={profile} profile={profile} onProfileChange={setProfile}/>;
 }
